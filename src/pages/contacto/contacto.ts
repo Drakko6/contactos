@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {HttpClient} from "@angular/common/http";
 
 
@@ -20,8 +20,12 @@ export class ContactoPage {
   correo ="";
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public http:HttpClient) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public http:HttpClient, public alertCtrl: AlertController) {
   }
+
+
+
+
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ContactoPage');
@@ -30,29 +34,43 @@ export class ContactoPage {
 
   addContact(){
 
-    console.log('addMovie')
+    if(this.nombre=="" || this.telefono=="" || this.avatar==""){
 
-    const contacto ={
-      nombre: this.nombre,
-      telefono: this.telefono,
-      correo: this.correo,
-      facebook : this.facebook,
-      twitter: this.twitter,
-      instagram: this.instagram,
-      avatar:this.avatar
+      const alert = this.alertCtrl.create({
+        title: '¡Oops!',
+        subTitle: 'Nombre, Teléfono y Avatar necesarios',
+        buttons: ['OK']
+      });
+      alert.present();
 
-    };
+    }
+    else{
 
-    console.log(JSON.stringify(contacto));
 
-    this.http.post('contactos/contactos/', contacto)
-      .subscribe(data=> {
-        console.log(JSON.stringify(data));
-      }, error => {
-        console.log(JSON.stringify(error))
-      })
+      const contacto ={
+        nombre: this.nombre,
+        telefono: this.telefono,
+        correo: this.correo,
+        facebook : this.facebook,
+        twitter: this.twitter,
+        instagram: this.instagram,
+        avatar:this.avatar
 
-    this.navCtrl.pop()
+      };
+
+      console.log(JSON.stringify(contacto));
+
+      this.http.post('contactos/contactos/', contacto)
+        .subscribe(data=> {
+          console.log(JSON.stringify(data));
+        }, error => {
+          console.log(JSON.stringify(error))
+        })
+
+      this.navCtrl.pop()
+    }
+
+
 
 
 
