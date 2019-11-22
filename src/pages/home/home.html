@@ -1,11 +1,35 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Este es el home de contactos
+     Contactos
     </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="clickAdd()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  Hola
+<ion-content style="background-color: #07A0C3" >
+
+
+  <ion-list>
+
+
+
+      <ion-card *ngFor="let contacto of contactos" >
+        <ion-item style="background-color: #F0C808">
+          <ion-avatar item-start>
+            <img src="{{contacto.avatar}}">
+          </ion-avatar>
+          <h2 style="font-weight: bold">{{contacto.nombre}}</h2>
+          <h2 style="color: #FFF2D6">{{contacto.telefono}}</h2>
+        </ion-item>
+      </ion-card>
+
+
+
+  </ion-list>
+
 </ion-content>

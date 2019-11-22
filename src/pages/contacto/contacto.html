@@ -1,0 +1,48 @@
+
+<ion-header>
+  <ion-navbar>
+    <ion-title>Nuevo contacto</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content style="background-color: #003559">
+
+
+  <ion-list>
+    <ion-item>
+      <ion-label floating>Nombre</ion-label>
+      <ion-input type="text" [(ngModel)]="nombre"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Teléfono</ion-label>
+      <ion-input type="text" [(ngModel)]="telefono"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Facebook</ion-label>
+      <ion-input type="text" [(ngModel)]="facebook"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Twitter</ion-label>
+      <ion-input type="text" [(ngModel)]="twitter"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Instagram</ion-label>
+      <ion-input type="text" [(ngModel)]="instagram"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Avatar</ion-label>
+      <ion-input type="text" [(ngModel)]="avatar"></ion-input>
+    </ion-item>
+
+
+
+  </ion-list>
+
+  <button style="background-color: #DD1C1A" ion-button block (click)="addMovie()" >Agregar</button>
+
+</ion-content>
