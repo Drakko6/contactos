@@ -30,13 +30,8 @@ export class HomePage {
 
   }
 
-
-
   contactos: any;
-
-
-
-  ionViewWillEnter(){
+  ionViewDidEnter(){
 
     this.http.get('/contactos/contactos/')
       .subscribe(data => {
