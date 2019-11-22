@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import {ContactoPage} from "../contacto/contacto";
 import {DetallePage} from "../detalle/detalle";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'page-home',
@@ -9,7 +10,7 @@ import {DetallePage} from "../detalle/detalle";
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, public http:HttpClient) {
 
   }
 
@@ -29,6 +30,29 @@ export class HomePage {
 
   }
 
+
+
+  contactos: any;
+
+
+
+  ionViewWillEnter(){
+
+    this.http.get('/contactos/contactos/')
+      .subscribe(data => {
+
+        this.contactos = data;
+
+        console.log(JSON.stringify(data));
+
+      }, error => {console.log(JSON.stringify(error))});
+
+  }
+
+
+
+
+  /*
   contactos = [{
 
     nombre : "Tonatiuh",
@@ -52,6 +76,8 @@ export class HomePage {
     }
 
   ]
+
+  */
 
 
 }
