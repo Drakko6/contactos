@@ -16,6 +16,7 @@ export class ContactoPage {
   twitter="";
   instagram="";
   avatar ="";
+  correo ="";
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
@@ -27,7 +28,7 @@ export class ContactoPage {
 
 
 
-  addMovie(){
+  addContact(){
 
   }
 

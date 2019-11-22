@@ -5,7 +5,7 @@
     </ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="clickAdd()">
-        <ion-icon name="add"></ion-icon>
+        <ion-icon style="color: #DD1C1A" name="add"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -15,10 +15,8 @@
 
 
   <ion-list>
-
-
-
-      <ion-card *ngFor="let contacto of contactos" >
+      <ion-card *ngFor="let contacto of contactos"  (click) ="clickDetalle(contacto.nombre, contacto.telefono,
+      contacto.correo, contacto.facebook, contacto.instagram, contacto.twitter, contacto.avatar)">
         <ion-item style="background-color: #F0C808">
           <ion-avatar item-start>
             <img src="{{contacto.avatar}}">
@@ -27,7 +25,6 @@
           <h2 style="color: #FFF2D6">{{contacto.telefono}}</h2>
         </ion-item>
       </ion-card>
-
 
 
   </ion-list>
