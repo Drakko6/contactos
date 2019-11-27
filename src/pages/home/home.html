@@ -11,22 +11,33 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content style="background-color: #07A0C3" >
-
+<ion-content style="background-color: #0780C3" >
 
   <ion-list>
-      <ion-card *ngFor="let contacto of contactos"  (click) ="clickDetalle(contacto.nombre, contacto.telefono,
-      contacto.correo, contacto.facebook, contacto.instagram, contacto.twitter, contacto.avatar)">
-        <ion-item style="background-color: #F0C808">
-          <ion-avatar item-start>
-            <img src="{{contacto.avatar}}">
-          </ion-avatar>
-          <h2 style="font-weight: bold">{{contacto.nombre}}</h2>
-          <h2 style="color: #FFF2D6">{{contacto.telefono}}</h2>
+  <ion-item-sliding *ngFor="let contacto of contactos">
+        <ion-item style="background-color: #F0C808" (click) ="clickDetalle(contacto.id, contacto.nombre, contacto.telefono,
+        contacto.correo, contacto.facebook, contacto.instagram, contacto.twitter, contacto.avatar)">
+        <ion-avatar item-start>
+          <img src="{{contacto.avatar}}" >
+        </ion-avatar>
+        <h2 style="font-weight: bold">{{contacto.nombre}}</h2>
+        <h2 style="color: #FFF2D6">{{contacto.telefono}}</h2>
         </ion-item>
-      </ion-card>
 
-
+        <ion-item-options side="right">
+          <button ion-button color="danger" (click)="deleteContact(contacto)" >
+            <ion-icon name="md-trash"></ion-icon>
+            Eliminar
+          </button>
+        </ion-item-options>
+  </ion-item-sliding>
   </ion-list>
+
+
+
+
+
+
+
 
 </ion-content>

@@ -3,6 +3,19 @@ import { NavController } from 'ionic-angular';
 import {ContactoPage} from "../contacto/contacto";
 import {DetallePage} from "../detalle/detalle";
 import {HttpClient} from "@angular/common/http";
+import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore'
+
+interface Contacto {
+  nombre:string,
+  telefono:string,
+  correo:string,
+  facebook:string,
+  instagram:string,
+  twitter:string,
+  avatar:string,
+  id?:string
+
+}
 
 @Component({
   selector: 'page-home',
@@ -10,9 +23,38 @@ import {HttpClient} from "@angular/common/http";
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController, public http:HttpClient) {
+  contactosCollection: AngularFirestoreCollection<Contacto>
+  contactos: Contacto[];
+
+
+  constructor(public navCtrl: NavController, public http:HttpClient, public afs: AngularFirestore) {
+  }
+
+  ionViewDidEnter (){
+
+    this.contactosCollection =this.afs.collection('contacto');
+    this.contactosCollection.snapshotChanges().subscribe(listaContactos =>
+    {
+      this.contactos = listaContactos.map(item =>
+      {
+        return{
+          id: item.payload.doc.id,
+          nombre: item.payload.doc.data().nombre,
+          telefono: item.payload.doc.data().telefono,
+          correo: item.payload.doc.data().correo,
+          facebook: item.payload.doc.data().facebook,
+          twitter: item.payload.doc.data().twitter,
+          instagram: item.payload.doc.data().instagram,
+          avatar: item.payload.doc.data().avatar
+        }
+      })
+    })
+
 
   }
+
+
+
 
   contactoPage = ContactoPage;
   detallePage = DetallePage;
@@ -22,14 +64,22 @@ export class HomePage {
     this.navCtrl.push(this.contactoPage)
   }
 
-
-
-  clickDetalle(nombre, telefono,
-    correo, facebook, instagram, twitter, avatar){
-    this.navCtrl.push(this.detallePage, {nombre:nombre, telefono:telefono, correo:correo, facebook:facebook, instagram:instagram, twitter:twitter, avatar:avatar})
+  deleteContact(contacto:Contacto){
+    this.afs.doc('contacto/'+contacto.id+'').delete().then( () =>
+    {console.log("Contacto eliminado");
+    }).catch(err => {console.error(err);})
 
   }
 
+
+
+  clickDetalle(id, nombre, telefono,
+    correo, facebook, instagram, twitter, avatar){
+    this.navCtrl.push(this.detallePage, {id: id, nombre:nombre, telefono:telefono, correo:correo, facebook:facebook, instagram:instagram, twitter:twitter, avatar:avatar})
+
+  }
+
+  /*
   contactos: any;
   ionViewDidEnter(){
 
@@ -45,34 +95,7 @@ export class HomePage {
   }
 
 
-
-
-  /*
-  contactos = [{
-
-    nombre : "Tonatiuh",
-    telefono : "331301802",
-    facebook :"@TonatiuhTamayo",
-    twitter: "@TonatiuhTamayo",
-    instagram: "@TonatiuhTamayo",
-    correo: "dragontona@gmail.com",
-    avatar :"https://cdn.ciudad.com.ar/sites/default/files/styles/grizzly_galeria/public/nota/2018/03/07/what-homer-simpson-taught-us-about-doughnuts_3k8v.jpg?itok=YbaozsGF"
-
-  },
-
-    {
-      nombre : "Juan",
-      telefono : "331301802",
-      facebook :"@TonatiuhTamayo",
-      twitter: "@TonatiuhTamayo",
-      instagram: "@TonatiuhTamayo",
-      correo: "gg@gmail.com",
-      avatar :"https://cdn.ciudad.com.ar/sites/default/files/styles/grizzly_galeria/public/nota/2018/03/07/what-homer-simpson-taught-us-about-doughnuts_3k8v.jpg?itok=YbaozsGF"
-    }
-
-  ]
-
-  */
+   */
 
 
 }
